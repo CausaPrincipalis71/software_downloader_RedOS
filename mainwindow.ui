@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>824</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QStackedWidget" name="mainStackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="preparationPage">
+       <widget class="QScrollArea" name="scrollKitsArea">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>110</y>
+          <width>272</width>
+          <height>211</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>270</width>
+           <height>209</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="mathButton">
+            <property name="text">
+             <string>Математика</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="hydrologyButton">
+            <property name="text">
+             <string>Гидрология</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="astronomyButton">
+            <property name="text">
+             <string>Астрономия</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="geologyButton">
+            <property name="text">
+             <string>Геология</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="engeneeringButton">
+            <property name="text">
+             <string>Инженерия</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="csButton">
+            <property name="text">
+             <string>Информатика</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="kitsDescription" native="true">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>100</y>
+          <width>450</width>
+          <height>240</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Устанавливаемые пакеты</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Описание</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QStackedWidget" name="packagesChoose">
+             <property name="currentIndex">
+              <number>0</number>
+             </property>
+             <widget class="QWidget" name="mathPage">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QScrollArea" name="mathScrollArea">
+                 <property name="widgetResizable">
+                  <bool>true</bool>
+                 </property>
+                 <widget class="QWidget" name="mathScrollAreaContents">
+                  <property name="geometry">
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>148</width>
+                    <height>172</height>
+                   </rect>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_2"/>
+                 </widget>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="hydrologyPage"/>
+             <widget class="QWidget" name="astonomyPage"/>
+             <widget class="QWidget" name="geologyPage"/>
+             <widget class="QWidget" name="engeneeringPage"/>
+             <widget class="QWidget" name="csPage"/>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="packageDescription">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Open Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="downloadButton">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>400</y>
+          <width>301</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Начать загрузку</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="downloadPage">
+       <widget class="QTextEdit" name="installationLog">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>60</y>
+          <width>431</width>
+          <height>251</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="returnButton">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>340</y>
+          <width>201</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Вернуться назад</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>824</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
