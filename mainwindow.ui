@@ -192,6 +192,15 @@ p, li { white-space: pre-wrap; }
           <height>26</height>
          </rect>
         </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="statusTip">
+         <string/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="text">
          <string>Начать загрузку</string>
         </property>
@@ -206,6 +215,9 @@ p, li { white-space: pre-wrap; }
           <width>431</width>
           <height>251</height>
          </rect>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
        <widget class="QPushButton" name="returnButton">

@@ -9,9 +9,36 @@ DLPackage::DLPackage(const typeOfPackage type, const categoryOfPackage category,
     this->m_name = name;
     this->m_description = description;
 
-    // Create checkbox
-    packageCheckbox = new QCheckBox(this->m_name);
+    // Prepare download commands
+    if (this->m_type == AppImage)
+    {
+        // Adding parameters for download appimage from web
+        this->m_downloadProgramm = "wget";
+        this->m_downloadArguments << "-O" << "/usr/bin/" + m_name << "-nv" << m_link;
 
+        // Install proccess is setting appimage as executable for every user
+        installProcess.setProcessChannelMode(QProcess::MergedChannels); //Required for data display
+        this->m_installProgramm = "chmod";
+        this->m_installArguments << "777" << "/usr/bin/" + m_name;
+
+        // Check install with bash
+        this->m_checkInstallProgramm = "test";
+        this->m_checkInstallArguments << "-f" << "/usr/bin/" + m_name;
+    }
+    else if (this->m_type == RPM)
+    {
+        // Adding parameters for download and install rpm from repo
+        this->m_downloadProgramm = "dnf";
+        this->m_downloadArguments << "install" << "-y" << m_link;
+
+        // Check install with RPM
+        this->m_checkInstallProgramm = "rpm";
+        this->m_checkInstallArguments << "-q" << m_link;
+    }
+
+    // Create checkbox
+    packageCheckbox = new QHoverCheckBox(this->m_name);
+    connect(packageCheckbox, SIGNAL(mouseHover()), this, SLOT(onMouseHover()));
 }
 
 DLPackage::~DLPackage()
@@ -24,25 +51,6 @@ void DLPackage::download()
     // Creating download process
     downloadProcess = new QProcess();
     downloadProcess->setProcessChannelMode(QProcess::MergedChannels);   //Required for data display
-
-    if (this->m_type == AppImage)
-    {
-        // Adding parameters for download appimage from web
-        this->m_downloadProgramm = "wget";
-        this->m_downloadArguments << "-O" << "/usr/bin/" + m_name << "-nv" << m_link;
-
-        // Install proccess is setting appimage as executable for every user
-        //installProcess = new QProcess();
-        installProcess.setProcessChannelMode(QProcess::MergedChannels); //Required for data display
-        this->m_installProgramm = "chmod";
-        this->m_installArguments << "777" << "/usr/bin/" + m_name;
-    }
-    else if (this->m_type == RPM)
-    {
-        // Adding parameters for download and install rpm from repo
-        this->m_downloadProgramm = "dnf";
-        this->m_downloadArguments << "install" << "-y" << m_link;
-    }
 
     // Starting download process, pause the programm, while download isn`t over
     downloadProcess->start(m_downloadProgramm, m_downloadArguments);
@@ -67,6 +75,21 @@ bool DLPackage::install()
     else return false;  // Normal exit code - 0
 }
 
+bool DLPackage::checkInstall()
+{
+    checkInstallProcess.start(m_checkInstallProgramm, m_checkInstallArguments);
+    checkInstallProcess.waitForFinished();
+    return checkInstallProcess.exitCode() == 0; // Normal exit code - 0
+}
+
+void DLPackage::setPackageCheckBoxDisabled()
+{
+    packageCheckbox->setCheckable(false);
+    packageCheckbox->setStyleSheet("color: rgb(158, 155, 155);");
+    packageCheckbox->setToolTip(tr("Программа уже установлена"));
+    disconnect(packageCheckbox, SIGNAL(mouseHover()), this, SLOT(onMouseHover()));
+}
+
 void DLPackage::onReadyRead()
 {
     emit readyRead(this);
@@ -74,8 +97,20 @@ void DLPackage::onReadyRead()
 
 void DLPackage::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+    Q_UNUSED(exitCode)
+    Q_UNUSED(exitStatus)
     delete downloadProcess;
     emit processFinished();
+}
+
+void DLPackage::onMouseHover()
+{
+    emit mouseHover(this);
+}
+
+QString DLPackage::getDescription() const
+{
+    return m_description;
 }
 
 categoryOfPackage DLPackage::getCategory() const

@@ -7,21 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Getting packages and adding their checkbox into layout
-    allPackagesVector = createAllPackagesVectors();
-
-    for (auto tmpVector = allPackagesVector.begin(); tmpVector != allPackagesVector.end(); tmpVector++)
-    {
-        for (int packageNumber = 0; packageNumber < tmpVector->size(); packageNumber++) {
-            switch (tmpVector->at(packageNumber)->getCategory()) {
-                case MATH:
-                    ui->mathScrollAreaContents->layout()->addWidget( tmpVector->at(packageNumber)->getPackageCheckbox() );
-                break;
-            }
-        }
-
-    }
-
+    initAllPackagesVector();
 }
 
 MainWindow::~MainWindow()
@@ -49,14 +35,14 @@ void MainWindow::installPackages(packageInstallOperation operation, int packageU
     //Next step in packages, if packageUpdate set to 1
     packageNumber += packageUpdate;
 
-    while (packageNumber > allPackagesVector.at(vectorNumber).size())  // If we went to border of vector
+    while (packageNumber >= allPackagesVector.at(vectorNumber).size())  // If we went to border of vector
     {
         // set packageNumber to 0 and make one step inside allPackagesVector
         packageNumber = 0;
         vectorNumber += 1;
 
         // If we fone trough all vectors, abort installation
-        if(vectorNumber > allPackagesVector.size())
+        if(vectorNumber >= allPackagesVector.size())
         {
             return;
         }
@@ -95,6 +81,14 @@ void MainWindow::installPackages(packageInstallOperation operation, int packageU
         // Make next step in the installation
         installPackages(DOWNLOAD, 1);
     }
+    else if (operation == FINISH)
+    {
+        vectorNumber = 0;
+        packageNumber = 0;
+
+        clearAllPackagesVector();
+        initAllPackagesVector();
+    }
 }
 
 void MainWindow::onProcessReadyRead(DLPackage* package)
@@ -105,6 +99,54 @@ void MainWindow::onProcessReadyRead(DLPackage* package)
 void MainWindow::onProcessFinished()
 {
     installPackages(INSTALL);
+}
+
+void MainWindow::onCheckBoxHover(DLPackage *package)
+{
+    ui->packageDescription->setText(package->getDescription());
+}
+
+void MainWindow::initAllPackagesVector()
+{
+    // Getting packages and adding their checkbox into layout
+    allPackagesVector = createAllPackagesVectors();
+
+    for (auto tmpVector = allPackagesVector.begin(); tmpVector != allPackagesVector.end(); tmpVector++)
+    {
+        for (int packageNumber = 0; packageNumber < tmpVector->size(); packageNumber++) {
+            if(tmpVector->at(packageNumber)->checkInstall() == true)       // If programm is installed
+                tmpVector->at(packageNumber)->setPackageCheckBoxDisabled(); // Set checkbox disabled and set tooltip
+
+            connect(tmpVector->at(packageNumber), SIGNAL(mouseHover(DLPackage*)), this, SLOT(onCheckBoxHover(DLPackage*))); // Switch description when hovered on checkbox
+
+            switch (tmpVector->at(packageNumber)->getCategory()) {
+                case MATH:
+                    ui->mathScrollAreaContents->layout()->addWidget( tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+            }
+        }
+
+    }
+}
+
+void MainWindow::clearAllPackagesVector()
+{
+    for (auto tmpVector = allPackagesVector.begin(); tmpVector != allPackagesVector.end(); tmpVector++)
+    {
+        for (int packageNumber = 0; packageNumber < tmpVector->size(); packageNumber++) {
+
+            disconnect(tmpVector->at(packageNumber), SIGNAL(mouseHover(DLPackage*)), this, SLOT(onCheckBoxHover(DLPackage*))); // Remove switching description when hovered on checkbox
+
+            switch (tmpVector->at(packageNumber)->getCategory()) {
+                case MATH:
+                    ui->mathScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+            }
+        }
+
+    }
+
+    allPackagesVector.clear();
 }
 
 
@@ -145,3 +187,10 @@ void MainWindow::on_csButton_clicked()
     ui->packagesChoose->setCurrentWidget(ui->csPage);
 }
 
+
+void MainWindow::on_returnButton_clicked()
+{
+    ui->mainStackedWidget->setCurrentWidget(ui->preparationPage);
+
+    installPackages(FINISH);
+}

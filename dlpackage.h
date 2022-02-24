@@ -4,6 +4,7 @@
 #include <QString>
 #include <QCheckBox>
 #include <QProcess>
+#include "qhovercheckbox.h"
 
 enum typeOfPackage { RPM = 0, AppImage };
 enum categoryOfPackage { MATH = 0, HYDROLOGY, ASTRONOMY, GEOLOGY, ENGENEERING, CS };
@@ -20,6 +21,10 @@ public:
     // Actions
     void download();
     bool install();
+    bool checkInstall();
+
+    // Wotk with checkBox
+    void setPackageCheckBoxDisabled();
 
     // Get functions
     bool getPackageCheckBoxState();
@@ -36,14 +41,19 @@ public:
 
     categoryOfPackage getCategory() const;
 
+    QString getDescription() const;
+
 signals:
     void readyRead(DLPackage*);       // For internal connections
     void processFinished();
 
+    void mouseHover(DLPackage*);
+
 private slots:
-    void onReadyRead();    // For work inside class
+    void onReadyRead();    // For work with process inside class
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
+    void onMouseHover();
 
 private:
     // Parameters of package
@@ -65,6 +75,11 @@ private:
     QProcess installProcess;
     QString m_installProgramm;
     QStringList m_installArguments;
+
+    // Check install process
+    QProcess checkInstallProcess;
+    QString m_checkInstallProgramm;
+    QStringList m_checkInstallArguments;
 
 };
 

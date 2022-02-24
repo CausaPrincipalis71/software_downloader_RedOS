@@ -45,10 +45,18 @@ private slots:
 
     void onProcessFinished();
 
+    // Function for work with package description
+    void onCheckBoxHover(DLPackage * package);
+
+    void on_returnButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     // Vectors of packages
     QVector<QVector<DLPackage*>> allPackagesVector;
+
+    void initAllPackagesVector();
+    void clearAllPackagesVector();
 };
 #endif // MAINWINDOW_H

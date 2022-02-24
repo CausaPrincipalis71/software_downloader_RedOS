@@ -36,6 +36,8 @@ if(ANDROID)
     dlpackage.cpp
     dlpackage.h
     createpackages.h
+    qhovercheckbox.h
+    qhovercheckbox.cpp
   )
 else()
   add_executable(software_downloader_RedOS
@@ -46,6 +48,8 @@ else()
     dlpackage.cpp
     dlpackage.h
     createpackages.h
+    qhovercheckbox.cpp
+    qhovercheckbox.h
   )
 endif()
 
