@@ -12,6 +12,15 @@ DLPackage::DLPackage(const typeOfPackage type, const categoryOfPackage category,
     // Create checkbox
     packageCheckbox = new QCheckBox(this->m_name);
 
+}
+
+DLPackage::~DLPackage()
+{
+
+}
+
+void DLPackage::download()
+{
     // Creating download process
     downloadProcess = new QProcess();
     downloadProcess->setProcessChannelMode(QProcess::MergedChannels);   //Required for data display
@@ -23,8 +32,8 @@ DLPackage::DLPackage(const typeOfPackage type, const categoryOfPackage category,
         this->m_downloadArguments << "-O" << "/usr/bin/" + m_name << "-nv" << m_link;
 
         // Install proccess is setting appimage as executable for every user
-        installProcess = new QProcess();
-        installProcess->setProcessChannelMode(QProcess::MergedChannels); //Required for data display
+        //installProcess = new QProcess();
+        installProcess.setProcessChannelMode(QProcess::MergedChannels); //Required for data display
         this->m_installProgramm = "chmod";
         this->m_installArguments << "777" << "/usr/bin/" + m_name;
     }
@@ -34,15 +43,7 @@ DLPackage::DLPackage(const typeOfPackage type, const categoryOfPackage category,
         this->m_downloadProgramm = "dnf";
         this->m_downloadArguments << "install" << "-y" << m_link;
     }
-}
 
-DLPackage::~DLPackage()
-{
-
-}
-
-void DLPackage::download()
-{
     // Starting download process, pause the programm, while download isn`t over
     downloadProcess->start(m_downloadProgramm, m_downloadArguments);
 
@@ -59,9 +60,9 @@ bool DLPackage::install()
 {
     if(m_type == AppImage)
     {
-        installProcess->start(m_installProgramm, m_installArguments);
-        installProcess->waitForFinished();
-        return installProcess->exitCode();
+        installProcess.start(m_installProgramm, m_installArguments);
+        installProcess.waitForFinished();
+        return installProcess.exitCode();
     }
     else return false;  // Normal exit code - 0
 }
@@ -73,6 +74,7 @@ void DLPackage::onReadyRead()
 
 void DLPackage::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+    delete downloadProcess;
     emit processFinished();
 }
 

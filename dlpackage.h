@@ -62,7 +62,7 @@ private:
     QStringList m_downloadArguments;
 
     // Install process (chmod for appimage, RPM is ignored)
-    QProcess * installProcess;
+    QProcess installProcess;
     QString m_installProgramm;
     QStringList m_installArguments;
 
