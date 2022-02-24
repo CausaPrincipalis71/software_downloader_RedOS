@@ -14,7 +14,7 @@ DLPackage::DLPackage(const typeOfPackage type, const categoryOfPackage category,
     {
         // Adding parameters for download appimage from web
         this->m_downloadProgramm = "wget";
-        this->m_downloadArguments << "-O" << "/usr/bin/" + m_name << "-nv" << m_link;
+        this->m_downloadArguments << "-O" << "/usr/bin/" + m_name << m_link;
 
         // Install proccess is setting appimage as executable for every user
         installProcess.setProcessChannelMode(QProcess::MergedChannels); //Required for data display

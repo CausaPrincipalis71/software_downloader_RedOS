@@ -32,6 +32,16 @@ void MainWindow::installPackages(packageInstallOperation operation, int packageU
     static int vectorNumber = 0;
     static int packageNumber = 0;
 
+    if (operation == FINISH)
+    {
+        vectorNumber = 0;
+        packageNumber = 0;
+
+        clearAllPackagesVector();
+        initAllPackagesVector();
+        return;
+    }
+
     //Next step in packages, if packageUpdate set to 1
     packageNumber += packageUpdate;
 
@@ -81,14 +91,6 @@ void MainWindow::installPackages(packageInstallOperation operation, int packageU
         // Make next step in the installation
         installPackages(DOWNLOAD, 1);
     }
-    else if (operation == FINISH)
-    {
-        vectorNumber = 0;
-        packageNumber = 0;
-
-        clearAllPackagesVector();
-        initAllPackagesVector();
-    }
 }
 
 void MainWindow::onProcessReadyRead(DLPackage* package)
@@ -123,6 +125,30 @@ void MainWindow::initAllPackagesVector()
                 case MATH:
                     ui->mathScrollAreaContents->layout()->addWidget( tmpVector->at(packageNumber)->getPackageCheckbox() );
                 break;
+
+                case CHEMISTRY:
+                    ui->chemistryScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case ASTRONOMY:
+                    ui->astronomyScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case GEOLOGY:
+                    ui->geologyScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case ENGENEERING:
+                    ui->engeneeringScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case CS:
+                    ui->csScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case OTHER:
+                    ui->otherKitsScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
             }
         }
 
@@ -140,6 +166,30 @@ void MainWindow::clearAllPackagesVector()
             switch (tmpVector->at(packageNumber)->getCategory()) {
                 case MATH:
                     ui->mathScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case CHEMISTRY:
+                    ui->chemistryScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case ASTRONOMY:
+                    ui->astronomyScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case GEOLOGY:
+                    ui->geologyScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case ENGENEERING:
+                    ui->engeneeringScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case CS:
+                    ui->csScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                break;
+
+                case OTHER:
+                    ui->otherKitsScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
                 break;
             }
         }
@@ -159,9 +209,9 @@ void MainWindow::on_mathButton_clicked()
 }
 
 
-void MainWindow::on_hydrologyButton_clicked()
+void MainWindow::on_chemistryButton_clicked()
 {
-    ui->packagesChoose->setCurrentWidget(ui->hydrologyPage);
+    ui->packagesChoose->setCurrentWidget(ui->chemistryPage);
 }
 
 void MainWindow::on_astronomyButton_clicked()
@@ -180,13 +230,15 @@ void MainWindow::on_engeneeringButton_clicked()
     ui->packagesChoose->setCurrentWidget(ui->engeneeringPage);
 }
 
-
-
 void MainWindow::on_csButton_clicked()
 {
     ui->packagesChoose->setCurrentWidget(ui->csPage);
 }
 
+void MainWindow::on_otherKitButton_clicked()
+{
+    ui->packagesChoose->setCurrentWidget(ui->otherKitsPage);
+}
 
 void MainWindow::on_returnButton_clicked()
 {

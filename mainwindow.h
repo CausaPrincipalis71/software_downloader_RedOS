@@ -26,7 +26,7 @@ private slots:
 
     void on_mathButton_clicked();
 
-    void on_hydrologyButton_clicked();
+    void on_chemistryButton_clicked();
 
     void on_astronomyButton_clicked();
 
@@ -49,6 +49,8 @@ private slots:
     void onCheckBoxHover(DLPackage * package);
 
     void on_returnButton_clicked();
+
+    void on_otherKitButton_clicked();
 
 private:
     Ui::MainWindow *ui;

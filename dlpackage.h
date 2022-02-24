@@ -7,7 +7,7 @@
 #include "qhovercheckbox.h"
 
 enum typeOfPackage { RPM = 0, AppImage };
-enum categoryOfPackage { MATH = 0, HYDROLOGY, ASTRONOMY, GEOLOGY, ENGENEERING, CS };
+enum categoryOfPackage { MATH = 0, CHEMISTRY, ASTRONOMY, GEOLOGY, ENGENEERING, CS, OTHER };
 
 
 class DLPackage : public QObject
