@@ -134,8 +134,8 @@ void MainWindow::initAllPackagesVector()
                     ui->astronomyScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
                 break;
 
-                case GEOLOGY:
-                    ui->geologyScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                case GEOGRAPHY:
+                    ui->geographyScrollAreaContents->layout()->addWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
                 break;
 
                 case ENGENEERING:
@@ -176,8 +176,8 @@ void MainWindow::clearAllPackagesVector()
                     ui->astronomyScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
                 break;
 
-                case GEOLOGY:
-                    ui->geologyScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
+                case GEOGRAPHY:
+                    ui->geographyScrollAreaContents->layout()->removeWidget(tmpVector->at(packageNumber)->getPackageCheckbox() );
                 break;
 
                 case ENGENEERING:
@@ -206,38 +206,44 @@ void MainWindow::clearAllPackagesVector()
 void MainWindow::on_mathButton_clicked()
 {
     ui->packagesChoose->setCurrentWidget(ui->mathPage);
+    ui->kitName->setText(tr("Математика"));
 }
 
 
 void MainWindow::on_chemistryButton_clicked()
 {
     ui->packagesChoose->setCurrentWidget(ui->chemistryPage);
+    ui->kitName->setText(tr("Химия"));
 }
 
 void MainWindow::on_astronomyButton_clicked()
 {
     ui->packagesChoose->setCurrentWidget(ui->astonomyPage);
+    ui->kitName->setText(tr("Астрономия"));
 }
 
-void MainWindow::on_geologyButton_clicked()
+void MainWindow::on_geographyButton_clicked()
 {
-    ui->packagesChoose->setCurrentWidget(ui->geologyPage);
+    ui->packagesChoose->setCurrentWidget(ui->geographyPage);
+    ui->kitName->setText(tr("География"));
 }
-
 
 void MainWindow::on_engeneeringButton_clicked()
 {
     ui->packagesChoose->setCurrentWidget(ui->engeneeringPage);
+    ui->kitName->setText(tr("Инженерия"));
 }
 
 void MainWindow::on_csButton_clicked()
 {
     ui->packagesChoose->setCurrentWidget(ui->csPage);
+    ui->kitName->setText(tr("Информатика"));
 }
 
 void MainWindow::on_otherKitButton_clicked()
 {
     ui->packagesChoose->setCurrentWidget(ui->otherKitsPage);
+    ui->kitName->setText(tr("Прочие"));
 }
 
 void MainWindow::on_returnButton_clicked()
@@ -246,3 +252,5 @@ void MainWindow::on_returnButton_clicked()
 
     installPackages(FINISH);
 }
+
+

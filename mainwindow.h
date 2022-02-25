@@ -30,7 +30,7 @@ private slots:
 
     void on_astronomyButton_clicked();
 
-    void on_geologyButton_clicked();
+    void on_geographyButton_clicked();
 
     void on_engeneeringButton_clicked();
 
